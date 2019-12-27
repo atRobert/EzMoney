@@ -1,0 +1,14 @@
+@media (max-width:1000px) {
+  .my_info{
+    position:absolute;
+    bottom:0;
+    width: 100%;
+    margin-bottom: 0px;
+    border-radius:0px;
+    text-align: center;
+  }
+
+  .my_info .far{
+    margin-left: 15px;
+  }
+}

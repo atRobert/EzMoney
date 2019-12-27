@@ -1,0 +1,45 @@
+
+  {% extends 'userbase/base.html' %}
+    {% block body_block %}
+    <div class="container">
+      <br>
+      <div class="jumbotron" style='text-align:center;' data-aos="zoom-in" data-aos-duration="500">
+        <h1 class="display-4">Let's set a goal!</h1>
+        <hr>
+        <form method="post">{% csrf_token %}
+          <!-- <label for="id_save_percent">Save <span id="demo"></span>% of my paycheck</label>
+          <br>
+          (Around $<span id="demoTotal"></span>)
+          <br>
+          <input type="range" name="save_percent" value="80" required_id='id_save_percent'
+            min='1' max = '100' id='myRange'> -->
+
+          <p>Goal completion date:</p>
+          {{ form.save_date}}
+          <p></p>
+          <p>Goal Amount</p>
+          $ <input type="number" name="goal_amount" step="0.01"
+              placeholder="0.00" required="" id="id_goal_amount">
+          <p></p>
+          <input type="submit" value="Add Goal!" class="btn btn-success">
+        </form>
+      </div>
+
+    </div>
+
+    <script type="text/javascript">
+      var slider = document.getElementById("myRange");
+      var output = document.getElementById("demo");
+      var outputTotal = document.getElementById("demoTotal");
+      var weeklyNet = {{ weekly_net }}
+      output.innerHTML = slider.value;
+      outputTotal.innerText = (slider.value * weeklyNet * 0.01).toFixed(2);
+
+      slider.oninput = function() {
+      outputTotal.innerHTML = (this.value * weeklyNet * 0.01).toFixed(2);
+      output.innerHTML = this.value;
+
+      }
+    </script>
+
+    {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'userbase/base.html' %}
+  {% block body_block %}
+  <div class="container">
+    <br>
+    <div class="jumbotron" style='text-align:center;'>
+      <h1 class="display-4">Sign Up!</h1>
+      <hr>
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div>
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if form.errors %}
+            {% for error in field.errors %}
+              <p style="color: red">{{ error }}</p>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+        {% endfor %}
+        <hr>
+        <button type="submit" class ='btn btn-dark' style='background-color:#00b871; border-color: #00b871;'>Sign up</button>
+        </form>
+      </div>
+      </div>
+      <br>
+      <p>Your data is yours. We don't give out any information
+      for any reason.</p>
+      <p>Your email is only needed for account recovery purposes.</p>
+      <p>Already have an account? <a href="{% url 'login' %}">Log in.</a></p>
+    </div>
+  </div>
+
+  <div class="jumbotron my_info">
+    <a href="https://www.linkedin.com/in/rjbarrett05/" target="_blank" ><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.rjbdev.com/" target="_blank" ><i class="far fa-folder-open"></i></a>
+  </div>
+    {% endblock %}

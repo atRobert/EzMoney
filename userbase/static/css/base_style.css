@@ -1,0 +1,108 @@
+body{
+  background-color: white;
+  background-image: url('../images/wallpaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
+}
+
+.jumbotron{
+  background-color:#7ddaa5e6;
+  opacity: 1
+}
+
+.btn-success{
+  background-color:#00b871;
+  border-color: #00b871;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-width{
+  min-width: 120px;
+  justify-content: center;
+
+}
+
+.btn-holder{
+  text-align: center;
+}
+
+.error{
+  color:red;
+}
+
+.progress-frame{
+
+  padding: 3px;
+  margin-top: 5px;
+}
+
+.btn{
+  border: 1px solid transparent;
+}
+.btn:hover{
+  border: black solid 1px;
+}
+
+.progress-bar{
+  text-align: right;
+
+}
+.progress{
+  height: 30px;
+}
+
+.my_info{
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  position:fixed;
+  bottom: 0%;
+  left: 0%;
+  font-size: 40px;
+  padding-top:0px;
+  padding-bottom:0px;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.my_info .far{
+  margin-left: 10px;
+}
+
+.my_info a{
+  text-decoration: none;
+  color: black;
+  transition: .2s ease-in-out;
+}
+
+.my_info a:hover{
+  color: #00b871;
+}
+
+.add_money {
+  color:black;
+  font-size: 20px;
+}
+
+.add_money:hover {
+  text-decoration: none;
+  color:black;
+}
+
+
+
+@media (max-width:1000px) {
+  .my_info{
+    position:relative;
+    bottom:0;
+    margin-bottom: 0px;
+    border-radius:0px;
+    text-align: center;
+  }
+
+  .my_info .far{
+    margin-left: 15px;
+  }
+}

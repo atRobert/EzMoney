@@ -1,0 +1,47 @@
+{% extends 'userbase/base.html' %}
+  {% block body_block %}
+  <div class="container">
+    <br>
+    <div class="jumbotron" style='text-align:center;' data-aos="zoom-in" data-aos-duration="500">
+      <h1 class="display-4">Let's update your income information.</h1>
+      <hr>
+      <form method="post">{% csrf_token %}
+        <p>Are you paid hourly or salary?</p>
+        {{ form.income_type }}
+        <p></p>
+        <p>How often are you paid?</p>
+        {{ form.pay_cycle }}
+        <p></p>
+        <p>What is your rate? (Or annual income)</p>
+        $ <input type="number" name="income_amount"
+          placeholder="0.00" step="0.01" required="" id="id_income_amount">
+        <p></p>
+        <p>What percentage do you keep after taxes?</p>
+        <input type="range" name="after_tax" value="80" required_id='id_after_tax'
+          min='1' max = '100' id='myRange'>
+          <br>
+        <label for="id_after_tax"><span id="demo"></span>%</label>
+        <p>What is the total of monthly expenses? (Gas, food, rent, etc)</p>
+        $ <input type="number" name="monthly_expenses"
+          placeholder="0.00" step="0.01" required="" id="id_monthly_expenses">
+        <p></p>
+        <input type="submit" value="Update" class='btn btn-success' style='background-color:#00b871; border-color: #00b871;'>
+      </form>
+      <br>
+      <a href="{% url 'home' %}" class='btn btn-danger btn-width'>Cancel</a>
+    </div>
+
+  </div>
+
+  <script type="text/javascript">
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() {
+    output.innerHTML = this.value;
+    }
+  </script>
+
+  {% endblock %}

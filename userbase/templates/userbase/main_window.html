@@ -1,0 +1,118 @@
+{% load humanize %}
+<div class="container">
+  <br>
+  <div class="jumbotron" data-aos="zoom-in" data-aos-duration="500">
+    <div class="row">
+      <div class="col-11">
+        <h1>Hi, {{request.user}}! {{ encourage }}</h1>
+        <br>
+      </div>
+      <div class="col-1" style='text-align:right; color:#00b871;'>
+        <h1><i class="fas fa-leaf"></i></h1>
+      </div>
+    </div>
+    <div class="row text-center">
+      <div class="col-lg-4 col-xs-12 py-2">
+        {% if goal_given %}
+        <a href="{% url 'update-goal' pk=user_goal_pk %}" class='btn btn-success btn-width'>Edit Goal</a>
+        {% endif %}
+      </div>
+      <div class="col-lg-4 col-xs-12 py-2">
+        <a href="{% url 'user_logout' %}" class='btn btn-danger btn-width'>Logout</a>
+      </div>
+      <div class="col-lg-4 col-xs-12 py-2">
+        <a href="{% url 'update-income' pk=user_income_pk %}" class='btn btn-success btn-width'>Edit Income</a>
+      </div>
+    </div>
+    <hr>
+    {% if goal_given %}
+    <div class="progress-key">
+      <p>
+        <i class="fas fa-square" style='color:#0077ff'></i> Expected Progress &nbsp;
+        <i class="fas fa-square" style='color:#41ab1f'></i> Current Progress
+      </p>
+    </div>
+    <div class="bar-container">
+      <div class="progress-frame">
+        {% if current_progress > projected_progress %}
+        <div class="progress" style='background-color:transparent; border: 1px solid black;'>
+          <div class="progress-bar prog-2" role="progressbar"
+            style="width: 0%; background-color:#0077ff; transition: width 2.0s ease;"
+            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            {{projected_progress}}% &nbsp;</div>
+          <div class="progress-bar prog-1" role="progressbar"
+            style="width: 0%; background-color:#41ab1f;
+             transition: width 2.0s ease; transition-delay: 1s;"
+            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            {{current_progress}}% &nbsp;</div>
+        </div>
+        {% else %}
+          <div class="progress" style='background-color:#00b871c4'>
+            <div class="progress-bar prog-1" role="progressbar"
+              style="width: 0%; background-color:#41ab1f; transition: width 2.0s ease;"
+              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              {{current_progress}}% </div>
+            <div class="progress-bar prog-2" role="progressbar"
+              style="width: 0%; background-color:#0077ff;
+               transition: width 2.0s ease; transition-delay: 1s;"
+              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              {{projected_progress}}% </div>
+          </div>
+
+        {% endif %}
+
+        </div>
+      </div>
+
+    {% endif %}
+    <br>
+    <div class="text-center">
+      <p>You currently have ${{user_current_savings|intcomma}} saved!</p>
+      {% if goal_given %}
+        <p>Your current goal is ${{user_current_goal|intcomma}} by {{ user_goal_date }}</p>
+        {% if current_expectation > user_current_goal %}
+        <p>If you keep this up, you'll reach your savings goal before {{ user_goal_date }}</p>
+        {% else %}
+        <p>If you don't save more, you'll only have ${{current_expectation|intcomma}} by {{ user_goal_date }}!</p>
+        {% endif %}
+    </div>
+
+      <br>
+      <p></p>
+      <br>
+      <h2 class='text-center'><a href="{% url 'add-money' %}" class='add_money btn btn-success'><i class="fas fa-plus-circle ">
+        </i> Add money towards goal</a>
+         </h2>
+      <br>
+    {% else %}
+      <br>
+      <div class="container" style='text-align:center;'>
+        <h1>Let's set up a savings goal!</h1>
+        <h2><a href="{% url 'add-goal' %}" class='btn btn-success ' style='background-color:#00b871; border-color: #00b871;'>
+          Add goal</a></h2>
+      </div>
+
+    {% endif %}
+
+    {% if added_money %}
+    {% load mathfilters %}
+    <br>
+    <div class="container" style='text-align:center;'>
+      <div class="jumbotron">
+        <h1>Recent activity:</h1>
+        <hr>
+        {% for money in added_money %}
+          {% if money.amount_added > 0 %}
+          <p>${{ money.amount_added|intcomma }} added on {{ money.date_added }}</p>
+          {% else %}
+          <p style='color:red;'>${{ money.amount_added|abs|intcomma}} removed on {{ money.date_added }}</p>
+          {% endif %}
+        {% endfor %}
+        <hr>
+        <a href="{% url 'my-activity' %}" class='btn btn-success'>All Activity</a>
+      </div>
+
+    </div>
+    {% endif %}
+  </div>
+</div>

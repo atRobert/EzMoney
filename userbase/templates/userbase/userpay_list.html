@@ -1,0 +1,51 @@
+{% extends 'userbase/base.html' %}
+  {% block body_block %}
+  {% load humanize %}
+  <br>
+  <div class="container" style='text-align:center;'>
+    <div class="jumbotron">
+      <a href="{% url 'home' %}" class='btn btn-success'>Home</a>
+      <hr>
+      <h1>Recent activity:</h1>
+      <hr>
+      {% for money in object_list %}
+      {% load mathfilters %}
+        {% if money.amount_added > 0 %}
+        <p>${{ money.amount_added|intcomma }} added on {{ money.date_added }}</p>
+        {% else %}
+        <p style='color:red;'>${{ money.amount_added|abs|intcomma }} removed on {{ money.date_added }}</p>
+        {% endif %}
+      {% endfor %}
+      <hr>
+      <a href="{% url 'home' %}" class='btn btn-success'>Home</a>
+      <br>
+      {% if is_paginated %}
+        <div class="container" >
+          <br>
+          <ul class="pagination" style='justify-content:center;'>
+            {% if page_obj.has_previous %}
+              <li><a href="?page={{ page_obj.previous_page_number }}" class='btn btn-success'>&laquo;</a></li>
+            {% else %}
+              <li class="disabled" style='visibility:hidden;'><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+              {% if page_obj.number == i %}
+                <li class="active" ><span class='btn btn-success' style='background-color:black;'>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li><a href="?page={{ i }}" class='btn btn-success'>{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+              <li><a href="?page={{ page_obj.next_page_number }}" class='btn btn-success'>&raquo;</a></li>
+            {% else %}
+              <li class="disabled" style='visibility:hidden;'><span>&raquo;</span></li>
+            {% endif %}
+          </ul>
+        </div>
+        {% endif %}
+
+
+    </div>
+
+  </div>
+  {% endblock %}

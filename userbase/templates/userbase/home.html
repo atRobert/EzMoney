@@ -1,0 +1,56 @@
+{% extends 'userbase/base.html' %}
+  {% block body_block %}
+
+
+    {% if income_given %}
+      {% include 'userbase/main_window.html' %}
+
+    {% else %}
+      <div class="container">
+        <br>
+        <div class="jumbotron" style="text-align: center">
+          <h1>Welcome, {{request.user}}! Let's get started by adding some info.</h1>
+          <br>
+          <h2><a href="{% url 'add-income' %}" class='btn btn-success' style='background-color:#00b871; border-color: #00b871;'>
+            Add income info</a></h2>
+            <hr>
+            <a href="{% url 'user_logout' %}" class='btn btn-success btn-width'>Logout</a>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="jumbotron my_info">
+      <a href="https://www.linkedin.com/in/rjbarrett05/" target="_blank" ><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.rjbdev.com/" target="_blank" ><i class="far fa-folder-open"></i></a>
+    </div>
+
+    <script type="text/javascript">
+      $( document ).ready(function() {
+        if ({{current_progress}} > {{projected_progress}}){
+          var newWidth = ({{current_progress}}-{{projected_progress}});
+        } else {
+          var newWidth = ({{projected_progress}}-{{current_progress}});
+        }
+
+
+
+        if ({{current_progress}} > {{projected_progress}}){
+
+          $('.prog-2').animate({
+            'width': '{{projected_progress}}%'
+          }, 'slow', function(){
+            $('.prog-1').animate({
+              'width': newWidth + '%'
+            }, 'slow')
+          });
+        } else {
+          $('.prog-1').animate({
+            'width': '{{current_progress}}%'
+          }, 'slow');
+          $('.prog-2').animate({
+            'width': newWidth + '%'
+          }, 'slow');
+        }
+      });
+    </script>
+  {% endblock %}
