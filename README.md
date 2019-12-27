@@ -1,4 +1,4 @@
-# EzMoney
+# [EzMoney](https://ez-money.herokuapp.com/)
 
 Webapp that allows users to create a savings goal, and track their savings progress. 
 You can see if you're ahead, behind or right on track. For now users can only create a 
