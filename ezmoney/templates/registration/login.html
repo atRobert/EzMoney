@@ -1,0 +1,40 @@
+{% extends 'userbase/base.html' %}
+
+{% block css_block %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/login_css.css' %}">
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+  <br>
+  <div class="jumbotron text-center">
+    <h2>Ez Money Login</h2>
+    <hr>
+    {% if form.errors %}
+      <p class='error'>Username or Password incorrect.</p>
+    {% else %}
+      <p>&nbsp;</p>
+    {% endif %}
+
+    <form method="post" >
+      {% csrf_token %}
+      <p>
+        <input type="text" name="username" autofocus="" required="" id="id_username" placeholder="Username"></p>
+      <p>
+        <input type="password" name="password" required="" id="id_password" placeholder="Password"></p>
+      <hr>
+      <button type="submit" class ='btn btn-success' >Login</button>
+    </form>
+
+    <br>
+    <p>Don't have an account? <a href="{% url 'signup' %}">Create one!</a></p>
+  </div>
+</div>
+
+<div class="jumbotron my_info">
+  <a href="https://www.linkedin.com/in/rjbarrett05/" target="_blank" ><i class="fab fa-linkedin"></i></a>
+  <a href="https://www.rjbdev.com/" target="_blank" ><i class="far fa-folder-open"></i></a>
+</div>
+
+{% endblock %}
